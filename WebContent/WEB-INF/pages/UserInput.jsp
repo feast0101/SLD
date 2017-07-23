@@ -84,22 +84,31 @@
 												<div class="panel-header bg-lightBlue fg-white">Questionnaire
 													</div>
 
-												<table>
+												<table width = "80%">
 												<tr>
-												<td>Q1</td>
-												<td>A1</td>
+												<td width="60%">Q1</td>
+												<td width="40%">A1</td>
 												</tr>
 												<tr>
-												<td>Q2</td>
-												<td>A2</td>
+												<td width="60%">Q1</td>
+												<td width="40%">A1</td>
 												</tr>
 												<tr>
-												<td>Q3</td>
-												<td>A3</td>
+												<td width="60%">Q1</td>
+												<td width="40%">A1</td>
 												</tr>
 												<tr>
-												<td>Q4</td>
-												<td>A4</td>
+												<td width="60%">Q1</td>
+												<td width="40%">A1</td>
+												</tr>
+												<tr>
+													<td></td>
+														<td>
+															<div style="margin-top: 45px">
+																<button class="button default"
+																	onclick="executeFunction()">SUBMIT</button>
+															</div>
+														</td>
 												</tr>
 												</table>
 
