@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+                xmlns:context="http://www.springframework.org/schema/context"
+                xmlns:mvc="http://www.springframework.org/schema/mvc"
+                xmlns:util="http://www.springframework.org/schema/util"
+                xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+                http://www.springframework.org/schema/context 
+                http://www.springframework.org/schema/context/spring-context-3.1.xsd
+                http://www.springframework.org/schema/mvc
+                http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+                http://www.springframework.org/schema/util
+                http://www.springframework.org/schema/util/spring-util-3.1.xsd">
+
+	<context:annotation-config />
+	
+	<context:component-scan base-package="com.kmbt.csa.dav" />
+	
+	  <bean class="org.springframework.web.servlet.view.XmlViewResolver">
+	   <property name="location">
+	       <value>/WEB-INF/spring/beans/spring-excel-views.xml</value>
+	   </property>
+	   <property name="order" value="0" />
+	</bean>
+	
+		<import resource="spring/database/DataSource.xml" />
+		<import resource="spring/database/Hibernate.xml" />
+		<!-- Handles HTTP GET requests for /static/** by efficiently serving up 
+			static resources in the ${webappRoot}/static/ directory <mvc:resources mapping="/images/**" 
+			location="/static/images/" /> <mvc:resources mapping="/css/**" location="/static/css/" 
+			/> -->
+		<bean  id="propertyConfigurer" 
+			class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			 <list>
+                <value>classpath:database.properties</value>
+                <value>classpath:constants.properties</value>
+             </list>
+		</property>
+		</bean>
+		<bean class="com.kmbt.csa.dav.validator.UserValidator" />
+
+		<!-- Register the constants.properties -->
+		<bean id="messageSource"
+			class="org.springframework.context.support.ResourceBundleMessageSource">
+			<property name="basename" value="constants" />
+		</bean>
+
+		<bean id="viewResolver"
+			class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+			<property name="prefix">
+				<value>/WEB-INF/pages/</value>
+			</property>
+			<property name="suffix">
+				<value>.jsp</value>
+			</property>
+		</bean>
+		<mvc:interceptors>
+			<!-- This runs for all mappings -->
+			<mvc:interceptor>
+				<!-- This one only runs for a specific URL pattern -->
+				<mvc:mapping path="/login.do" />
+				<bean class="com.kmbt.csa.dav.interceptors.DataLoadingInterceptor" />
+			</mvc:interceptor>
+
+		</mvc:interceptors>
+</beans>
